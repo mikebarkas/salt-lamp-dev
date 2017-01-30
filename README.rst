@@ -1,2 +1,2 @@
-Salt lampstack for local development
-=====================================
+LAMP stack for local development managed with Salt.
+====================================================
