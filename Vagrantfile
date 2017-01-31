@@ -37,4 +37,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.define :web1 do |minion_config|
+    minion_config.vm.box = 'ubuntu/trusty64'
+    minion_config.vm.host_name = 'saltweb1.local'
+    minion_config.vm.network 'private_network', ip: '192.168.10.11'
+
+    minion_config.vm.provision :salt do |salt|
+      salt.minion_config = 'saltstack/etc/web1'
+      salt.minion_key = 'saltstack/keys/web1.pem'
+      salt.minion_pub = 'saltstack/keys/web1.pub'
+      salt.install_type = 'stable'
+      salt.verbose = true
+      salt.colorize = true
+      salt.bootstrap_options = '-P -c /tmp'
+    end
+  end
+
 end
