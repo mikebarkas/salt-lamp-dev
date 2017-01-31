@@ -18,10 +18,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     master_config.vm.provision :salt do |salt|
       salt.master_config = 'saltstack/etc/master'
-      salt.master_key = 'saltstack/keys/master_minion.pem'
-      salt.master_pub = 'saltstack/keys/master_minion.pub'
-      salt.minion_key = 'saltstack/keys/master_minion.pem'
-      salt.minion_pub = 'saltstack/keys/master_minion.pub'
+      salt.master_key = 'saltstack/keys/master.pem'
+      salt.master_pub = 'saltstack/keys/master.pub'
+      salt.minion_key = 'saltstack/keys/master.pem'
+      salt.minion_pub = 'saltstack/keys/master.pub'
 
       salt.seed_master = {
         'web1' => 'saltstack/keys/web1.pub',
