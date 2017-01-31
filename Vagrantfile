@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define :master do |master_config|
     master_config.vm.box = 'ubuntu/trusty64'
-    master_config.vm.host_name = 'saltmaster.local'
+    master_config.vm.host_name = 'master.salt'
     master_config.vm.network 'private_network', ip: '192.168.10.10'
     master_config.vm.network 'forwarded_port', id: 'ssh', guest: 22, host: 2220
     master_config.vm.synced_folder 'saltstack/salt/', '/srv/salt'
@@ -40,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define :web1 do |minion_config|
     minion_config.vm.box = 'ubuntu/trusty64'
-    minion_config.vm.host_name = 'saltweb1.local'
+    minion_config.vm.host_name = 'web1.salt'
     minion_config.vm.network 'private_network', ip: '192.168.10.11'
     minion_config.vm.network 'forwarded_port',id: 'ssh', guest: 22, host: 2221
 
@@ -48,6 +48,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       salt.minion_config = 'saltstack/etc/web1'
       salt.minion_key = 'saltstack/keys/web1.pem'
       salt.minion_pub = 'saltstack/keys/web1.pub'
+      salt.install_type = 'stable'
+      salt.verbose = true
+      salt.colorize = true
+      salt.bootstrap_options = '-P -c /tmp'
+    end
+  end
+
+  config.vm.define :db1 do |minion_config|
+    minion_config.vm.box = 'ubuntu/trusty64'
+    minion_config.vm.host_name = 'db1.salt'
+    minion_config.vm.network 'private_network', ip: '192.168.10.20'
+    minion_config.vm.network 'forwarded_port',id: 'ssh', guest: 22, host: 2222
+
+    minion_config.vm.provision :salt do |salt|
+      salt.minion_config = 'saltstack/etc/db1'
+      salt.minion_key = 'saltstack/keys/db1.pem'
+      salt.minion_pub = 'saltstack/keys/db1.pub'
       salt.install_type = 'stable'
       salt.verbose = true
       salt.colorize = true
