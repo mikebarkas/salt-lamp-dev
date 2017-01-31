@@ -13,6 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     master_config.vm.box = 'ubuntu/trusty64'
     master_config.vm.host_name = 'saltmaster.local'
     master_config.vm.network 'private_network', ip: '192.168.10.10'
+    master_config.vm.network 'forwarded_port', id: 'ssh', guest: 22, host: 2220
     master_config.vm.synced_folder 'saltstack/salt/', '/srv/salt'
     master_config.vm.synced_folder 'saltstack/pillar/', '/srv/pillar'
 
@@ -41,6 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     minion_config.vm.box = 'ubuntu/trusty64'
     minion_config.vm.host_name = 'saltweb1.local'
     minion_config.vm.network 'private_network', ip: '192.168.10.11'
+    minion_config.vm.network 'forwarded_port',id: 'ssh', guest: 22, host: 2221
 
     minion_config.vm.provision :salt do |salt|
       salt.minion_config = 'saltstack/etc/web1'
