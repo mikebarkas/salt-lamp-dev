@@ -25,6 +25,9 @@ php70:
       - php7.0-mysql
       - php7.0-curl
       - php-xdebug
+      - php7.0-xml
+      - php7.0-mbstring
+
 
 /etc/php/7.0/apache2/conf.d/xdebug.conf.ini:
   file.managed:
