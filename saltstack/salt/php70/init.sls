@@ -25,3 +25,9 @@ php70:
       - php7.0-mysql
       - php7.0-curl
       - php-xdebug
+
+/etc/php/7.0/apache2/conf.d/xdebug.conf.ini:
+  file.managed:
+    - source: salt://php70/files/xdebug.conf.ini
+    - require:
+      - pkg: php70
