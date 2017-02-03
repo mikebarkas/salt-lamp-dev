@@ -5,7 +5,6 @@ apache2:
     - reload: True
     - watch:
       - file: /etc/apache2/sites-available/vhost-projects.conf
-      - file: /etc/apache2/apache2.conf
     - require:
       - pkg: apache2
 
