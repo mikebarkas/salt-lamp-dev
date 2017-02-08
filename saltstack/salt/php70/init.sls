@@ -18,19 +18,13 @@ update-os:
 php70:
   pkg.installed:
     - pkgs:
-      - php7.0
-      - php7.0-cli
-      - php7.0-gd
-      - php7.0-json
-      - php7.0-mysql
-      - php7.0-curl
-      - php-xdebug
-      - php7.0-xml
-      - php7.0-mbstring
+{% for pkg in pillar['php']['7.0']['packages'] %}
+      - {{ pkg }}
+{% endfor %}
 
 
-/etc/php/7.0/apache2/conf.d/xdebug.conf.ini:
+{{ pillar['php']['7.0']['xdebug']['file'] }}:
   file.managed:
-    - source: salt://php70/files/xdebug.conf.ini
+    - source: {{ pillar['php']['7.0']['xdebug']['source'] }}
     - require:
       - pkg: php70
