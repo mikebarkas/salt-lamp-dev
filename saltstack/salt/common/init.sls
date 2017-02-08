@@ -1,8 +1,6 @@
 common-packages:
   pkg.installed:
     - pkgs:
-      - wget
-      - curl
-      - sudo
-      - vim
-
+{% for pkg in pillar['common']['packages'] %}
+      - {{ pkg }}
+{% endfor %}
