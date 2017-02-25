@@ -26,6 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       salt.seed_master = {
         'web1' => 'saltstack/keys/web1.pub',
+        'web2' => 'saltstack/keys/web2.pub',
         'db1' => 'saltstack/keys/db1.pub'
       }
 
@@ -43,11 +44,30 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     minion_config.vm.host_name = 'web1.salt'
     minion_config.vm.network 'private_network', ip: '192.168.10.11'
     minion_config.vm.network 'forwarded_port',id: 'ssh', guest: 22, host: 2221
+    minion_config.vm.synced_folder '/host/project/path', '/var/www/projects'
 
     minion_config.vm.provision :salt do |salt|
       salt.minion_config = 'saltstack/etc/web1'
       salt.minion_key = 'saltstack/keys/web1.pem'
       salt.minion_pub = 'saltstack/keys/web1.pub'
+      salt.install_type = 'stable'
+      salt.verbose = true
+      salt.colorize = true
+      salt.bootstrap_options = '-P -c /tmp'
+    end
+  end
+
+  config.vm.define :web2 do |minion_config|
+    minion_config.vm.box = 'ubuntu/trusty64'
+    minion_config.vm.host_name = 'web2.salt'
+    minion_config.vm.network 'private_network', ip: '192.168.10.12'
+    minion_config.vm.network 'forwarded_port',id: 'ssh', guest: 22, host: 2223
+    minion_config.vm.synced_folder '/host/project/path', '/var/www/projects'
+
+    minion_config.vm.provision :salt do |salt|
+      salt.minion_config = 'saltstack/etc/web2'
+      salt.minion_key = 'saltstack/keys/web2.pem'
+      salt.minion_pub = 'saltstack/keys/web2.pub'
       salt.install_type = 'stable'
       salt.verbose = true
       salt.colorize = true
