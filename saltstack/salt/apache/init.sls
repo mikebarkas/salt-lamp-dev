@@ -23,6 +23,7 @@ apache2:
       - pkg: apache2
     - watch_in:
       - service: apache2
+    - template: jinja
 
 
 /etc/apache2/sites-enabled/vhost-projects.conf:
