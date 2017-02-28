@@ -7,4 +7,4 @@ base:
 
   'web*':
     - php
-
+    - apache
