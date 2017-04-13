@@ -1,4 +1,11 @@
 apache:
+
+{% if grains['id'] == 'web3' %}
+  phpinfo_file_path: '/var/www/index.php'
+{% else %}
+  phpinfo_file_path: '/var/www/html/index.php'
+{% endif %}
+
   vhosts:
     - id: web1
       server_name: domain.tld

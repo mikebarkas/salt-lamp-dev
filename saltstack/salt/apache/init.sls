@@ -9,7 +9,7 @@ apache2:
       - pkg: apache2
 
 
-/var/www/html/index.php:
+{{ pillar['apache']['phpinfo_file_path'] }}:
   file.managed:
     - source: salt://apache/files/index.php
     - require:
