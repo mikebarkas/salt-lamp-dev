@@ -27,3 +27,16 @@ php:
       - php-xdebug
       - php5.6-xml
       - php5.6-mbstring
+  '5.3':
+    xdebug:
+      file: /etc/php5/conf.d/xdebug.ini
+      source: salt://php53/files/xdebug.conf.ini
+    packages:
+      - php5
+      - php5-cli
+      - php5-gd
+      - php5-json
+      - php5-mysql
+      - php5-curl
+      - php5-xdebug
+      - php5-xmlrpc
