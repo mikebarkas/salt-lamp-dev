@@ -110,4 +110,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.define :db2 do |minion_config|
+    minion_config.vm.box = 'ubuntu/precise64'
+    minion_config.vm.host_name = 'db2.salt'
+    minion_config.vm.network 'private_network', ip: '192.168.10.21'
+    minion_config.vm.network 'forwarded_port',id: 'ssh', guest: 22, host: 2225
+
+    minion_config.vm.provision :salt do |salt|
+      salt.minion_config = 'saltstack/etc/db2'
+      salt.minion_key = 'saltstack/keys/db2.pem'
+      salt.minion_pub = 'saltstack/keys/db2.pub'
+      salt.install_type = 'stable'
+      salt.verbose = true
+      salt.colorize = true
+      salt.bootstrap_options = '-P -c /tmp'
+    end
+  end
+
 end
