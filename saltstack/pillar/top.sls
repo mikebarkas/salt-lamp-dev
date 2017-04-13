@@ -2,7 +2,7 @@ base:
   '*':
     - config
 
-  'db1':
+  'db*':
     - mysql
 
   'web*':
