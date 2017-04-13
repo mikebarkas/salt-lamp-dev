@@ -11,5 +11,8 @@ base:
   'web2':
     - php56
 
+  'web3':
+    - php53
+
   'db*':
     - mariadb
