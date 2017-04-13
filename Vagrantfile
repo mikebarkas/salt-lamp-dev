@@ -111,7 +111,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define :db2 do |minion_config|
-    minion_config.vm.box = 'ubuntu/precise64'
+    minion_config.vm.box = 'ubuntu/trusty64'
     minion_config.vm.host_name = 'db2.salt'
     minion_config.vm.network 'private_network', ip: '192.168.10.21'
     minion_config.vm.network 'forwarded_port',id: 'ssh', guest: 22, host: 2225
